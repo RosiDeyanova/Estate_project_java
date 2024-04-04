@@ -11,6 +11,6 @@ public class EstateController {
     @GetMapping()
     public String showWelcomePage(Model model) {
 
-        return "edit";
+        return "index";
     }
 }
