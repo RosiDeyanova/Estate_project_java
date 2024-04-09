@@ -31,7 +31,6 @@ public class BootstrapData implements CommandLineRunner {
                 "it provides the perfect canvas for personalized touches.");
         firstEstate.setPrice(123000.0);
         firstEstate.setSize(150);
-        firstEstate.setRealtorEmail("george.maison@englishestates.com");
         firstEstate.setImageName("house3.jpg");
 
         Estate secondEstate = new Estate();
@@ -42,20 +41,17 @@ public class BootstrapData implements CommandLineRunner {
                 "views from large windows.");
         secondEstate.setPrice(200000.0);
         secondEstate.setSize(80);
-        secondEstate.setRealtorEmail("george.maison@englishestates.com");
         secondEstate.setImageName("house5.jpg");
 
         Customer ivan = new Customer();
         ivan.setEmail("ivaniv@gmail.com");
         ivan.setPassword("123456");
-        ivan.setPhone("0887590943");
         ivan.setFirstName("Ivan");
         ivan.setLastName("Nedelchev");
 
         Customer neda = new Customer();
         neda.setEmail("n45petrova@gmail.com");
         neda.setPassword("123456");
-        neda.setPhone("0897945902");
         neda.setFirstName("Neda");
         neda.setLastName("Petrova");
 
