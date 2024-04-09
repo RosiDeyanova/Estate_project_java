@@ -22,10 +22,11 @@ public class Estate {
 
     @NonNull
     @NotBlank
-    private String heading;
+    private String propertyName;
     private String description;
     private Double price;
     private Integer size;
+    private String realtorEmail;
     private String imageName;
 
     @ManyToMany(mappedBy = "estates")

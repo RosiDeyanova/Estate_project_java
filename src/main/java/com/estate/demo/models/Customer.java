@@ -23,6 +23,7 @@ public class Customer {
     private String lastName;
     private String email;
     private String phone;
+    private String password;
 
     @ManyToMany
     @JoinTable(name = "estate_customer", joinColumns = @JoinColumn(name="estate_id"),inverseJoinColumns = @JoinColumn(name = "customer_id"))
