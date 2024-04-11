@@ -1,6 +1,7 @@
 package com.estate.demo.bootstrap;
 
 
+import com.estate.demo.enums.EstateStatus;
 import com.estate.demo.models.Customer;
 import com.estate.demo.models.Estate;
 import com.estate.demo.repositories.CustomerRepository;
@@ -25,7 +26,7 @@ public class BootstrapData implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Estate firstEstate = new Estate();
-        firstEstate.setPropertyName("Rural house");
+        firstEstate.setName("Rural house");
         firstEstate.setDescription("This charming rural house boasts a serene setting, " +
                 "offering a tranquil escape from urban life. With its classic design and spacious layout, " +
                 "it provides the perfect canvas for personalized touches.");
@@ -33,8 +34,9 @@ public class BootstrapData implements CommandLineRunner {
         firstEstate.setSize(150);
         firstEstate.setImageName("house3.jpg");
 
+
         Estate secondEstate = new Estate();
-        secondEstate.setPropertyName("City apartment");
+        secondEstate.setName("City apartment");
         secondEstate.setDescription("Nestled in the heart of the bustling city, " +
                 "this modern apartment offers urban dwellers a stylish retreat with " +
                 "its sleek design and contemporary amenities. Boasting expansive city " +
@@ -42,6 +44,7 @@ public class BootstrapData implements CommandLineRunner {
         secondEstate.setPrice(200000.0);
         secondEstate.setSize(80);
         secondEstate.setImageName("house5.jpg");
+        secondEstate.setStatus(EstateStatus.Hot);
 
         Customer ivan = new Customer();
         ivan.setEmail("ivaniv@gmail.com");

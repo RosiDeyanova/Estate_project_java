@@ -23,12 +23,12 @@ public class Estate {
 
     @NonNull
     @NotBlank
-    private String propertyName;
+    private String name;
     private String description;
     private Double price;
     private Integer size;
     private String imageName;
-    private EstateStatus estateStatus = EstateStatus.Available;
+    private EstateStatus Status = EstateStatus.Available;
 
     @ManyToMany(mappedBy = "estates")
     private Set<Customer> customers = new HashSet<>();

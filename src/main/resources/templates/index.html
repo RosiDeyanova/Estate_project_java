@@ -15,7 +15,7 @@
         <!-- Float links to the right. Hide them on small screens -->
         <div class="w3-right w3-hide-small">
             <a href="index.html" class="w3-bar-item w3-button">All Estates</a>
-            <a href="create.html" class="w3-bar-item w3-button">Log in</a>
+            <a href="newEstate.html" class="w3-bar-item w3-button">Log in</a>
         </div>
     </div>
 </div>
@@ -39,13 +39,14 @@
     <div class="w3-row-padding">
         <div th:each="estate : ${estates}" class="w3-col l3 m6 w3-margin-bottom">
             <div class="w3-display-container">
-                <div class="w3-display-topleft w3-black w3-padding" th:text="${estate.propertyName}"></div>
+                <div th:class="'w3-display-topleft ' + ${estate.statusClass} + ' w3-padding'" th:text="${estate.status}"></div>
                 <img th:src="@{'/img/' + ${estate.imageName}}" alt="House" style="width:100%">
+                <h3 th:text="${estate.name}"></h3>
             </div>
         </div>
     </div>
 
-    <div class="w3-container w3-padding-32" >
+    <div class="w3-container w3-padding-32">
         <center><a><button class="w3-button w3-black w3-section" style="padding:10px; width: 500px"> SEE ALL</button></a></center>
     </div>
 
@@ -60,7 +61,7 @@
 
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-16">
-    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+    <p> <a th:href="@{/registrationBroker}" title="W3.CSS" target="_blank" class="w3-hover-text-green">Register as a broker</a></p>
 </footer>
 
 </body>

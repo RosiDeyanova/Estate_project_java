@@ -15,7 +15,7 @@
         <!-- Float links to the right. Hide them on small screens -->
         <div class="w3-right w3-hide-small">
             <a href="index.html" class="w3-bar-item w3-button">All Estates</a>
-            <a href="create.html" class="w3-bar-item w3-button">My Estates</a>
+            <a href="newEstate.html" class="w3-bar-item w3-button">My Estates</a>
         </div>
     </div>
 </div>
@@ -33,8 +33,8 @@
     <div class="w3-container w3-padding-32" id="contact">
         <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Upload a new property</h3>
         <p>Upload a new property to our database </p>
-        <form action="#" th:action="@{/newestate}" method="post" enctype="multipart/form-data" th:object="${estate}" target="_blank" id="usrform">
-            <input class="w3-input w3-border" type="text" placeholder="Name of property" required name="Name" th:field="*{propertyName}">
+        <form th:action="@{/newEstate}" method="post" enctype="multipart/form-data" th:object="${estate}" target="_blank" id="usrform">
+            <input class="w3-input w3-border" type="text" placeholder="Name of property" required name="Name" th:field="*{name}">
             <textarea class="w3-input w3-section w3-border" id="w3review" form="usrform" name="Description" rows="4" cols="50" placeholder="Describe the property" th:field="*{description}"></textarea>
             <input class="w3-input w3-section w3-border" type="number" placeholder="Price" required name="Price" th:field="*{price}">
             <input class="w3-input w3-section w3-border" type="number" placeholder="Size in square meters" required name="Size" th:field="*{size}">
@@ -42,9 +42,8 @@
             <label for="pic">Upload a photo:</label>
             <input type="file" name="pic" id="pic" accept="image/png, image/jpeg, image/jpg" th:field="*{file}"/>
             <br>
-            <button class="w3-button w3-black w3-section" type="submit">
-                <i class="fa fa-paper-plane"></i> UPLOAD
-            </button>
+            <input class="w3-button w3-black w3-section" type="submit" value="UPLOAD">
+
         </form>
     </div>
 
@@ -55,7 +54,6 @@
 
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-16">
-    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
 </footer>
 
 </body>
