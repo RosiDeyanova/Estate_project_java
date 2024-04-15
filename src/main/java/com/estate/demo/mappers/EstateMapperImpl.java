@@ -3,12 +3,20 @@ package com.estate.demo.mappers;
 
 import com.estate.demo.enums.EstateStatus;
 import com.estate.demo.models.Estate;
+import com.estate.demo.repositories.EstateRepository;
+import com.estate.demo.services.FileUploadService;
 import com.estate.demo.viewModels.EstateViewModel;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+
 @Service
+@AllArgsConstructor
 public class EstateMapperImpl implements EstateMapper
 {
+    private final FileUploadService fileUploadService;
     @Override
     public Estate EstateVMToEstate(EstateViewModel estateViewModel) {
         Estate estate = new Estate();
@@ -16,8 +24,15 @@ public class EstateMapperImpl implements EstateMapper
         estate.setDescription((estateViewModel.getDescription()));
         estate.setPrice(estateViewModel.getPrice());
         estate.setSize(estateViewModel.getSize());
+        estate.setImageName(estateViewModel.getName()+".jpg");
 
-        return null;
+        try {
+            fileUploadService.saveFile(estateViewModel.getFile(), estate.getImageName(), "C:" + File.separator + "SpringBoot Projets" + File.separator + "estate project" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "img");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return estate;
     }
 
     @Override

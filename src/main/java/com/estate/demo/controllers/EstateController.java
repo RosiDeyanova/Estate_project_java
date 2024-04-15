@@ -55,11 +55,11 @@ public class EstateController {
     }
 
     @PostMapping("/newEstate")
-    public String createEstate(@RequestBody EstateViewModel estateVM, Model model){
+    public String createEstate(@ModelAttribute("estate")  EstateViewModel estateVM, Model model){
         model.addAttribute("estate", estateVM);
         Estate estate = estateMapper.EstateVMToEstate(estateVM);
         estateRepository.save(estate);
-        return "index";
+        return "redirect:/";
     }
 
 }
