@@ -6,21 +6,19 @@ import com.estate.demo.models.Customer;
 import com.estate.demo.models.Estate;
 import com.estate.demo.repositories.CustomerRepository;
 import com.estate.demo.repositories.EstateRepository;
+import com.estate.demo.security.PasswordConfig;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@AllArgsConstructor
 public class BootstrapData implements CommandLineRunner {
 
     private final CustomerRepository customerRepository;
     private final EstateRepository estateRepository;
-
-    public BootstrapData(CustomerRepository customerRepository, EstateRepository estateRepository) {
-        this.customerRepository = customerRepository;
-        this.estateRepository = estateRepository;
-    }
-
+    private final PasswordConfig passwordConfig;
 
     @Override
     public void run(String... args) throws Exception {
@@ -48,13 +46,13 @@ public class BootstrapData implements CommandLineRunner {
 
         Customer ivan = new Customer();
         ivan.setEmail("ivaniv@gmail.com");
-        ivan.setPassword("123456");
+        ivan.setPassword(passwordConfig.hashPassword("1234567"));
         ivan.setFirstName("Ivan");
         ivan.setLastName("Nedelchev");
 
         Customer neda = new Customer();
         neda.setEmail("n45petrova@gmail.com");
-        neda.setPassword("123456");
+        neda.setPassword(passwordConfig.hashPassword("123456"));
         neda.setFirstName("Neda");
         neda.setLastName("Petrova");
 
