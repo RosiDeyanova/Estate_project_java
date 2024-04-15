@@ -12,8 +12,10 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
         registry
 
                 .addResourceHandler("/img/**")
+            //every time link looking like this is searched
 
                 .addResourceLocations("file:src/main/resources/static/img/");
+            //it will be looking into these resources
 
     }
 }
