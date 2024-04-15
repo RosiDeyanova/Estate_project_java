@@ -1,11 +1,15 @@
 package com.estate.demo.mappers;
 
 import com.estate.demo.models.Broker;
+import com.estate.demo.security.PasswordConfig;
 import com.estate.demo.viewModels.BrokerViewModel;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@AllArgsConstructor
 @Service
 public class BrokerMapperImpl implements BrokerMapper {
+   private final PasswordConfig passwordConfig;
 
     @Override
     public Broker BrokerVMToBroker(BrokerViewModel brokerViewModel) {
@@ -14,7 +18,8 @@ public class BrokerMapperImpl implements BrokerMapper {
         broker.setLastName(brokerViewModel.getLastName());
         broker.setEmail(brokerViewModel.getEmail());
         broker.setPhoneNumber(brokerViewModel.getPhoneNumber());
-        broker.setPassword(brokerViewModel.getPassword());
+        broker.setPassword(passwordConfig.hashPassword(brokerViewModel.getPassword()));
+        //implemented password encoding
 
         return broker;
     }
