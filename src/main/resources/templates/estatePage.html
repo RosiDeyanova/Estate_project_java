@@ -23,10 +23,7 @@
 
 <!-- Header -->
 <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
-    <img class="w3-image" src="img/architect.jpg" alt="Architecture" width="1500" height="500">
-    <div class="w3-display-middle w3-margin-top w3-center">
-        <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>RD</b></span> <span class="w3-hide-small w3-text-light-grey">Estates</span></h1>
-    </div>
+    <center><img class="w3-image" th:src="@{'img/' + ${estate.imageName}}" alt="Architecture" width="700" height="700"></center>
 </header>
 
 <!-- Page content -->
@@ -34,22 +31,18 @@
 
     <!-- Project Section -->
     <div class="w3-container w3-padding-32" id="projects">
-        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Newest Estates</h3>
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" th:text="${estate.name}"></h3>
     </div>
 
     <div class="w3-row-padding">
-        <div th:each="estate : ${estates}" class="w3-col l3 m6 w3-margin-bottom">
-            <div class="w3-display-container">
-                <div th:class="'w3-display-topleft ' + ${estate.statusClass} + ' w3-padding'" th:text="${estate.status}"></div>
-                <img th:src="@{'img/' + ${estate.imageName}}" alt="House" style="width:100%">
-                <h4 th:text="${estate.name}"></h4>
-                <span th:text="${estate.price} + 'lv.'" ></span>
-            </div>
-        </div>
+        <p th:text="${estate.description}" ></p>
+       <b><center> <span th:text="'Price:' + ${estate.price} + ' lv'"></span>
+        <span th:text="'Size: ' + ${estate.size} + ' sq.m.'" style="margin-left: 50px;"></span></center></b>
     </div>
 
+
     <div class="w3-container w3-padding-32">
-        <center><a th:href="@{/allEstates(page=1)}"><button class="w3-button w3-black w3-section" style="padding:10px; width: 500px"> SEE ALL</button></a></center>
+        <center><a th:href="@{/allEstates(page=1)}"><button class="w3-button w3-black w3-section" style="padding:10px; width: 300px"> BUY</button></a></center>
     </div>
 
 

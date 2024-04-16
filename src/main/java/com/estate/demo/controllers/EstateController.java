@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
+import java.util.UUID;
 
 
 @Controller
@@ -95,5 +96,13 @@ public class EstateController {
         model.addAttribute("pageNumbers", pagenumbers);
         model.addAttribute("currentPage", page);
         return "allEstates";
+    }
+
+    @GetMapping("/estatePage")
+    public String showPaginatedEstates(Model model,@RequestParam(name = "id") UUID id)
+    {
+        Optional<Estate> estate = estateRepository.findById(id);
+        model.addAttribute("estate", estate.get());
+        return "estatePage";
     }
 }

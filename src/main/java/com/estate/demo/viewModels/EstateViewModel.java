@@ -4,9 +4,12 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.UUID;
+
 @Data
 public class EstateViewModel {
 
+    private UUID id;
     private String Name;
     private String description;
     private Double price;

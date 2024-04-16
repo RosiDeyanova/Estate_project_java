@@ -34,7 +34,7 @@
 
     <!-- Project Section -->
     <div class="w3-container w3-padding-32" id="projects">
-        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Newest Estates</h3>
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">All Estates</h3>
     </div>
 
     <div class="w3-row-padding">
@@ -42,7 +42,7 @@
             <div class="w3-display-container">
                 <div th:class="'w3-display-topleft ' + ${estate.statusClass} + ' w3-padding'" th:text="${estate.status}"></div>
                 <img th:src="@{'img/' + ${estate.imageName}}" alt="House" style="width:100%">
-                <h3 th:text="${estate.name}"></h3>
+                <a th:href="@{/estatePage(id=${estate.id})}"><h4 th:text="${estate.name}"></h4></a>
             </div>
         </div>
     </div>

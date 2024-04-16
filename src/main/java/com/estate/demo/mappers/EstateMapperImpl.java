@@ -38,6 +38,7 @@ public class EstateMapperImpl implements EstateMapper
     @Override
     public EstateViewModel EstateToEstateVM(Estate estate) {
         EstateViewModel estateVM = new EstateViewModel();
+        estateVM.setId(estate.getId());
         estateVM.setName(estate.getName());
         estateVM.setDescription(estate.getDescription());
         estateVM.setPrice(estate.getPrice());
