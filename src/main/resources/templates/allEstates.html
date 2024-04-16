@@ -38,18 +38,23 @@
     </div>
 
     <div class="w3-row-padding">
-        <div th:each="estate : ${estates}" class="w3-col l3 m6 w3-margin-bottom">
+        <div th:each="estate : ${pageEstates}" class="w3-col l3 m6 w3-margin-bottom">
             <div class="w3-display-container">
                 <div th:class="'w3-display-topleft ' + ${estate.statusClass} + ' w3-padding'" th:text="${estate.status}"></div>
                 <img th:src="@{'img/' + ${estate.imageName}}" alt="House" style="width:100%">
-                <h4 th:text="${estate.name}"></h4>
+                <h3 th:text="${estate.name}"></h3>
             </div>
         </div>
     </div>
 
-    <div class="w3-container w3-padding-32">
-        <center><a th:href="@{/allEstates(page=1)}"><button class="w3-button w3-black w3-section" style="padding:10px; width: 500px"> SEE ALL</button></a></center>
-    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+             <li th:each="pagenum : ${pageNumbers}" th:classappend="${pagenum == currentPage + 1} ? 'page-item active' : 'page-item'">
+                 <a class="page-link" th:href="@{/allEstates(page=${pagenum})}" th:text="${pagenum}"></a>
+             </li>
+        </ul>
+    </nav>
+
 
 
     <!-- Image of location/map -->
