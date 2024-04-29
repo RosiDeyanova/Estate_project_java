@@ -14,7 +14,6 @@ public class EstateViewModel {
     private String description;
     private Double price;
     private Integer size;
-    private String realtorEmail;
     private String imageName;
     private String statusClass;
     private String status;

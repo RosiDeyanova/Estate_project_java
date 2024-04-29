@@ -28,7 +28,7 @@ public class Estate {
     private Double price;
     private Integer size;
     private String imageName;
-    private EstateStatus Status = EstateStatus.Available;
+    private EstateStatus status = EstateStatus.Available;
 
     @ManyToMany(mappedBy = "estates")
     private Set<Customer> customers = new HashSet<>();

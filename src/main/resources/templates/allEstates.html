@@ -37,6 +37,14 @@
         <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">All Estates</h3>
     </div>
 
+   <nav class="navbar navbar-light bg-light">
+           <form class="form-inline" th:action="@{/allEstates}" method="get">
+               <input class="form-control mr-sm-3" type="search" placeholder="Find by name or id" aria-label="Search"
+                      name="searchTerm" th:value="${searchTerm}" style="padding-right: 300px">
+               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+           </form>
+    </nav>
+
     <div class="w3-row-padding">
         <div th:each="estate : ${pageEstates}" class="w3-col l3 m6 w3-margin-bottom">
             <div class="w3-display-container">

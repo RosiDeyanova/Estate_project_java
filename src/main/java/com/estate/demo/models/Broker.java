@@ -3,6 +3,7 @@ package com.estate.demo.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -25,5 +26,6 @@ public class Broker {
     private String password;
 
     @OneToMany(mappedBy = "broker")
-    private Set<Estate> estates;
+    //because of fetch = FetchType.EAGER it is not fetching anything
+    private Set<Estate> estates = new HashSet<>();
 }

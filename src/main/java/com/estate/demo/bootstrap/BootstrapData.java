@@ -2,8 +2,10 @@ package com.estate.demo.bootstrap;
 
 
 import com.estate.demo.enums.EstateStatus;
+import com.estate.demo.models.Broker;
 import com.estate.demo.models.Customer;
 import com.estate.demo.models.Estate;
+import com.estate.demo.repositories.BrokerRepository;
 import com.estate.demo.repositories.CustomerRepository;
 import com.estate.demo.repositories.EstateRepository;
 import com.estate.demo.security.PasswordConfig;
@@ -18,11 +20,38 @@ public class BootstrapData implements CommandLineRunner {
 
     private final CustomerRepository customerRepository;
     private final EstateRepository estateRepository;
+    private final BrokerRepository brokerRepository;
     private final PasswordConfig passwordConfig;
 
     @Override
     public void run(String... args) throws Exception {
 
+        // generating brokers
+        Broker broker1 = new Broker();
+        broker1.setFirstName("Ivan");
+        broker1.setLastName("Ivanov");
+        broker1.setEmail("ivanov@gmail.com");
+        broker1.setPassword("password");
+        broker1.setPhoneNumber("0887346795");
+        brokerRepository.save(broker1);
+
+        Broker broker2 = new Broker();
+        broker2.setFirstName("Georgi");
+        broker2.setLastName("Lalov");
+        broker2.setEmail("georgi@gmail.com");
+        broker2.setPassword("password");
+        broker2.setPhoneNumber("0887893412");
+        brokerRepository.save(broker2);
+
+        Broker broker3 = new Broker();
+        broker3.setFirstName("Michael");
+        broker3.setLastName("Michaelov");
+        broker3.setEmail("michael@gmail.com");
+        broker3.setPassword("password");
+        broker3.setPhoneNumber("0887457834");
+        brokerRepository.save(broker3);
+
+        //generate estates
         Estate firstEstate = new Estate();
         firstEstate.setName("Rural house");
         firstEstate.setDescription("This charming rural house boasts a serene setting, " +
@@ -31,7 +60,6 @@ public class BootstrapData implements CommandLineRunner {
         firstEstate.setPrice(123000.0);
         firstEstate.setSize(150);
         firstEstate.setImageName("house3.jpg");
-
 
         Estate secondEstate = new Estate();
         secondEstate.setName("City apartment");
@@ -83,6 +111,7 @@ public class BootstrapData implements CommandLineRunner {
         estate1.setPrice(95000.0);
         estate1.setSize(100);
         estate1.setImageName("house3.jpg");
+        estate1.setBroker(broker1);
         estateRepository.save(estate1);
 
         Estate estate2 = new Estate();
@@ -92,6 +121,7 @@ public class BootstrapData implements CommandLineRunner {
         estate2.setPrice(2500000.0);
         estate2.setSize(500);
         estate2.setImageName("house3.jpg");
+        estate2.setBroker(broker1);
         estateRepository.save(estate2);
 
         Estate estate3 = new Estate();
@@ -101,6 +131,7 @@ public class BootstrapData implements CommandLineRunner {
         estate3.setPrice(180000.0);
         estate3.setSize(120);
         estate3.setImageName("house3.jpg");
+        estate3.setBroker(broker1);
         estateRepository.save(estate3);
 
         Estate estate4 = new Estate();
@@ -110,6 +141,7 @@ public class BootstrapData implements CommandLineRunner {
         estate4.setPrice(135000.0);
         estate4.setSize(80);
         estate4.setImageName("house3.jpg");
+        estate4.setBroker(broker1);
         estateRepository.save(estate4);
 
         Estate estate5 = new Estate();
@@ -119,6 +151,7 @@ public class BootstrapData implements CommandLineRunner {
         estate5.setPrice(320000.0);
         estate5.setSize(200);
         estate5.setImageName("house3.jpg");
+        estate5.setBroker(broker2);
         estateRepository.save(estate5);
 
         Estate estate6 = new Estate();
@@ -128,6 +161,7 @@ public class BootstrapData implements CommandLineRunner {
         estate6.setPrice(210000.0);
         estate6.setSize(180);
         estate6.setImageName("house3.jpg");
+        estate6.setBroker(broker2);
         estateRepository.save(estate6);
 
         Estate estate7 = new Estate();
@@ -137,6 +171,7 @@ public class BootstrapData implements CommandLineRunner {
         estate7.setPrice(155000.0);
         estate7.setSize(150);
         estate7.setImageName("house3.jpg");
+        estate7.setBroker(broker2);
         estateRepository.save(estate7);
 
         Estate estate8 = new Estate();
@@ -146,6 +181,7 @@ public class BootstrapData implements CommandLineRunner {
         estate8.setPrice(480000.0);
         estate8.setSize(300);
         estate8.setImageName("house3.jpg");
+        estate8.setBroker(broker2);
         estateRepository.save(estate8);
 
         Estate estate9 = new Estate();
@@ -155,6 +191,7 @@ public class BootstrapData implements CommandLineRunner {
         estate9.setPrice(1500000.0);
         estate9.setSize(700);
         estate9.setImageName("house3.jpg");
+        estate9.setBroker(broker2);
         estateRepository.save(estate9);
 
         Estate estate10 = new Estate();
@@ -164,6 +201,7 @@ public class BootstrapData implements CommandLineRunner {
         estate10.setPrice(380000.0);
         estate10.setSize(250);
         estate10.setImageName("house3.jpg");
+        estate10.setBroker(broker3);
         estateRepository.save(estate10);
 
         Estate estate11 = new Estate();
@@ -173,6 +211,7 @@ public class BootstrapData implements CommandLineRunner {
         estate11.setPrice(280000.0);
         estate11.setSize(180);
         estate11.setImageName("house3.jpg");
+        estate11.setBroker(broker3);
         estateRepository.save(estate11);
 
         Estate estate12 = new Estate();
@@ -182,8 +221,8 @@ public class BootstrapData implements CommandLineRunner {
         estate12.setPrice(3200000.0);
         estate12.setSize(600);
         estate12.setImageName("house3.jpg");
+        estate12.setBroker(broker3);
         estateRepository.save(estate12);
-
 
 
     }

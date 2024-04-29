@@ -1,8 +1,10 @@
 package com.estate.demo.mappers;
 
 import com.estate.demo.models.Broker;
+import com.estate.demo.repositories.EstateRepository;
 import com.estate.demo.security.PasswordConfig;
 import com.estate.demo.viewModels.BrokerViewModel;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BrokerMapperImpl implements BrokerMapper {
    private final PasswordConfig passwordConfig;
+   private final EstateRepository estateRepository;
 
     @Override
     public Broker BrokerVMToBroker(BrokerViewModel brokerViewModel) {
@@ -34,6 +37,7 @@ public class BrokerMapperImpl implements BrokerMapper {
         brokerViewModel.setPhoneNumber(broker.getPhoneNumber());
         brokerViewModel.setPassword(broker.getPassword());
 
+        brokerViewModel.setEstatesCount((estateRepository.findAllByBroker(broker).size()));
         return brokerViewModel;
     }
 }

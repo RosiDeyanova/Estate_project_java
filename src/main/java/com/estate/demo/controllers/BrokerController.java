@@ -3,16 +3,19 @@ package com.estate.demo.controllers;
 import com.estate.demo.mappers.BrokerMapper;
 import com.estate.demo.models.Broker;
 import com.estate.demo.repositories.BrokerRepository;
+import com.estate.demo.services.BrokerService;
 import com.estate.demo.viewModels.BrokerViewModel;
+import com.estate.demo.viewModels.PageData;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @AllArgsConstructor
@@ -20,6 +23,7 @@ import java.util.List;
 public class BrokerController {
     private final BrokerMapper brokerMapper;
     private final BrokerRepository brokerRepository;
+    private final BrokerService brokerService;
 
     @GetMapping("/registrationBroker")
     public String showBrokerRegistrationPage(Model model) {
@@ -36,4 +40,23 @@ public class BrokerController {
         //redirects to main page
         //successfully saves a broker to the db
     }
+
+    @GetMapping("/allBrokers")
+    @PostMapping("/allBrokers")
+    public String showAllBrokersPage(Model model, @RequestParam(name = "page") Integer page) {
+        if (page == null) {
+            page = 0;
+        }
+        else {
+            page = page - 1;
+        }
+
+        PageData<BrokerViewModel> allBrokersPD = brokerService.getAllBrokers(page);
+
+        model.addAttribute("pageData", allBrokersPD);
+
+
+        return "allBrokers";
+    }
 }
+

@@ -69,7 +69,9 @@ public class EstateController {
 
     @GetMapping("/allEstates")
     @PostMapping("/allEstates")
-    public String showPaginatedEstates(Model model,@RequestParam(name = "page") Integer page) {
+    public String showPaginatedEstates(Model model,
+                                       @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
+                                       @RequestParam(name = "searchTerm", required = false) String searchTerm) {
         if (page == null) {
             page = 0;
         }
@@ -78,7 +80,12 @@ public class EstateController {
         }
 
         Pageable pageable = PageRequest.of(page, 12);
-        Page<Estate> pageEstates = estateRepository.findAll(pageable);
+        Page<Estate> pageEstates = estateRepository.findAllByNameContainingIgnoreCaseOrId(searchTerm,pageable);
+        if(searchTerm == null || searchTerm.isEmpty())
+        {
+            pageEstates = estateRepository.findAll(pageable);
+        }
+
         int totalPages = pageEstates.getTotalPages();
 
         List<Integer>pagenumbers = new ArrayList<Integer>();
@@ -91,10 +98,12 @@ public class EstateController {
             EstateViewModel estateVm = estateMapper.EstateToEstateVM(pageEstates.getContent().get(i));
             pageEstatesVm.add(estateVm);
         }
-
+        //pageEstatesVm.reversed();
+        //getting the last added estates first - not working
         model.addAttribute("pageEstates", pageEstatesVm);
         model.addAttribute("pageNumbers", pagenumbers);
         model.addAttribute("currentPage", page);
+        model.addAttribute("searchTerm", searchTerm);
         return "allEstates";
     }
 

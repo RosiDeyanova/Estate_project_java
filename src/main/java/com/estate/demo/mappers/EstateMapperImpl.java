@@ -3,7 +3,6 @@ package com.estate.demo.mappers;
 
 import com.estate.demo.enums.EstateStatus;
 import com.estate.demo.models.Estate;
-import com.estate.demo.repositories.EstateRepository;
 import com.estate.demo.services.FileUploadService;
 import com.estate.demo.viewModels.EstateViewModel;
 import lombok.AllArgsConstructor;
