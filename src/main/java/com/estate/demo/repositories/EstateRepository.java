@@ -14,7 +14,10 @@ import java.util.UUID;
 
 public interface EstateRepository extends JpaRepository<Estate, UUID>, PagingAndSortingRepository<Estate, UUID> {
 
-    public List<Estate> findAllByBroker(Broker broker);
+
     public Page<Estate> findAllByNameContainingIgnoreCase(String estateName, Pageable pageable);
+    public Page<Estate> findAllByBroker(Broker broker, Pageable pageable);
+    public List<Estate> findAllByBroker(Broker broker);
+    public Page<Estate> findAllByBrokerAndNameContainingIgnoreCase(Broker broker, String searchTerm,Pageable pageable);
 
 }

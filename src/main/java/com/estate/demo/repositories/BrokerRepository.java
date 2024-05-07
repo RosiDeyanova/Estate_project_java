@@ -10,4 +10,6 @@ import java.util.UUID;
 
 public interface BrokerRepository extends JpaRepository<Broker, UUID> {
     public Page<Broker> findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(String firstName, String lastName, Pageable pageable);
+    public Broker findBrokerById(UUID id);
+    public Broker findBrokerByEmail(String email);
 }

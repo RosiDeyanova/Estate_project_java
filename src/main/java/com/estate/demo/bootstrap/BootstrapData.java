@@ -21,7 +21,8 @@ public class BootstrapData implements CommandLineRunner {
     private final CustomerRepository customerRepository;
     private final EstateRepository estateRepository;
     private final BrokerRepository brokerRepository;
-    private final PasswordConfig passwordConfig;
+
+    public PasswordConfig passwordConfig = new PasswordConfig();
 
     @Override
     public void run(String... args) throws Exception {
@@ -31,7 +32,7 @@ public class BootstrapData implements CommandLineRunner {
         broker1.setFirstName("Ivan");
         broker1.setLastName("Ivanov");
         broker1.setEmail("ivanov@gmail.com");
-        broker1.setPassword("password");
+        broker1.setPassword(passwordConfig.hashPassword("password"));
         broker1.setPhoneNumber("0887346795");
         brokerRepository.save(broker1);
 
@@ -39,7 +40,7 @@ public class BootstrapData implements CommandLineRunner {
         broker2.setFirstName("Georgi");
         broker2.setLastName("Lalov");
         broker2.setEmail("georgi@gmail.com");
-        broker2.setPassword("password");
+        broker2.setPassword(passwordConfig.hashPassword("password"));
         broker2.setPhoneNumber("0887893412");
         brokerRepository.save(broker2);
 
@@ -47,7 +48,7 @@ public class BootstrapData implements CommandLineRunner {
         broker3.setFirstName("Michael");
         broker3.setLastName("Michaelov");
         broker3.setEmail("michael@gmail.com");
-        broker3.setPassword("password");
+        broker3.setPassword(passwordConfig.hashPassword("password"));
         broker3.setPhoneNumber("0887457834");
         brokerRepository.save(broker3);
 

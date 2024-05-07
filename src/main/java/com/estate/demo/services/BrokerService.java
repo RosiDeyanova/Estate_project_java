@@ -39,8 +39,8 @@ public class BrokerService {
 
         List<BrokerViewModel> pageBrokersVm = new ArrayList<>();
         for (int i = 0; i < pageBrokers.getContent().size(); i++) {
-            BrokerViewModel estateVm = brokerMapper.BrokerToBrokerVM(pageBrokers.getContent().get(i));
-            pageBrokersVm.add(estateVm);
+            BrokerViewModel brokerVm = brokerMapper.BrokerToBrokerVM(pageBrokers.getContent().get(i));
+            pageBrokersVm.add(brokerVm);
         }
         //pageEstatesVm.reversed();
         //getting the last added estates first - not working

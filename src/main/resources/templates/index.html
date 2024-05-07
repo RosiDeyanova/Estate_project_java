@@ -16,7 +16,9 @@
         <!-- Float links to the right. Hide them on small screens -->
         <div class="w3-right w3-hide-small">
             <a href="index.html" class="w3-bar-item w3-button">All Estates</a>
-            <a href="newEstate.html" class="w3-bar-item w3-button">Log in</a>
+            <a th:href="@{customerLogin}" class="w3-bar-item w3-button" th:if="${customerId == null && brokerId == null}"> Log in</a>
+            <a th:href="@{}" th:attr="customerId=${customerId}" class="w3-bar-item w3-button" th:if="${customerId != null}"> My estates</a>
+            <a th:href="@{brokersAllUploadedEstates(brokerId=${brokerId})}" th:attr="brokerId=${brokerId}" class="w3-bar-item w3-button" th:if="${brokerId != null}"> My estates</a>
         </div>
     </div>
 </div>
@@ -63,8 +65,9 @@
 
 
 <!-- Footer -->
-<footer class="w3-center w3-black w3-padding-16">
-    <p> <a th:href="@{/registrationBroker}" title="W3.CSS" target="_blank" class="w3-hover-text-green">Register as a broker</a></p>
+<footer class="w3-center w3-black w3-padding-16" th:if="${brokerId == null}">
+    <span><a th:href="@{/registrationBroker}" title="W3.CSS" target="_blank" class="w3-hover-text-green">Register as a broker</a></span>
+    <span><a th:href="@{/brokerLogin}" title="W3.CSS" target="_blank" class="w3-hover-text-green" style="margin-left: 40px">Login as a broker</a></span>
 </footer>
 
 </body>

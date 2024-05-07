@@ -31,7 +31,9 @@ public class EstateController {
     private final EstateMapper estateMapper;
 
     @GetMapping()
-    public String showWelcomePage(Model model) {
+    public String showWelcomePage(Model model,
+                                  @RequestParam(name = "brokerId", required = false) UUID brokerId,
+                                  @RequestParam(name = "customerId", required = false) UUID customerId) {
 
         List<Estate> newestEstates = new ArrayList<>();
         if (estateRepository.findAll().size() >= 8)
@@ -48,13 +50,16 @@ public class EstateController {
                 .toList();
 
         model.addAttribute("estates", newestEstatesVM);
+        model.addAttribute("brokerId", brokerId);
+        model.addAttribute("customerId", customerId);
         return "index";
     }
 
 
 
     @GetMapping("/newEstate")
-    public String showCreateForm(Model model) {
+    public String showCreateForm(Model model,
+                                 @RequestParam(name = "brokerId", required = false) UUID brokerId) {
         model.addAttribute("estate", new EstateViewModel());
         return "newEstate";
     }
@@ -71,7 +76,9 @@ public class EstateController {
     @PostMapping("/allEstates")
     public String showPaginatedEstates(Model model,
                                        @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
-                                       @RequestParam(name = "searchTerm", required = false) String searchTerm) {
+                                       @RequestParam(name = "searchTerm", required = false) String searchTerm,
+                                       @RequestParam(name = "brokerId", required = false) UUID brokerId,
+                                       @RequestParam(name = "customerId", required = false) UUID customerId) {
         if (page == null) {
             page = 0;
         }
@@ -108,7 +115,9 @@ public class EstateController {
     }
 
     @GetMapping("/estatePage")
-    public String showPaginatedEstates(Model model,@RequestParam(name = "id") UUID id)
+    public String showSingleEstate(Model model,@RequestParam(name = "id") UUID id,
+                                   @RequestParam(name = "brokerId", required = false) UUID brokerId,
+                                   @RequestParam(name = "customerId", required = false) UUID customerId)
     {
         Optional<Estate> estate = estateRepository.findById(id);
         model.addAttribute("estate", estate.get());
