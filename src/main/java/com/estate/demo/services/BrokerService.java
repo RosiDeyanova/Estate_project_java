@@ -2,21 +2,16 @@ package com.estate.demo.services;
 
 import com.estate.demo.mappers.BrokerMapper;
 import com.estate.demo.models.Broker;
-import com.estate.demo.models.Estate;
 import com.estate.demo.repositories.BrokerRepository;
-import com.estate.demo.repositories.EstateRepository;
 import com.estate.demo.viewModels.BrokerViewModel;
-import com.estate.demo.viewModels.EstateViewModel;
 import com.estate.demo.viewModels.PageData;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +23,14 @@ public class BrokerService {
     private final BrokerMapper brokerMapper;
 
     @Transactional
-    public PageData<BrokerViewModel> getAllBrokers(Integer page) {
+    public PageData<BrokerViewModel> getAllBrokersWithSearch(Integer page, String searchTerm) {
         Pageable pageable = PageRequest.of(page, 12);
-        Page<Broker> pageEstates = brokerRepository.findAll(pageable);
-        int totalPages = pageEstates.getTotalPages();
+        Page<Broker> pageBrokers = brokerRepository.findAllByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(searchTerm,searchTerm,pageable);
+        if(searchTerm == null || searchTerm.isEmpty())
+        {
+            pageBrokers = brokerRepository.findAll(pageable);
+        }
+        int totalPages = pageBrokers.getTotalPages();
 
         List<Integer>pagenumbers = new ArrayList<Integer>();
         for (int i = 1; i <= totalPages; i++) {
@@ -39,8 +38,8 @@ public class BrokerService {
         }
 
         List<BrokerViewModel> pageBrokersVm = new ArrayList<>();
-        for (int i = 0; i < pageEstates.getContent().size(); i++) {
-            BrokerViewModel estateVm = brokerMapper.BrokerToBrokerVM(pageEstates.getContent().get(i));
+        for (int i = 0; i < pageBrokers.getContent().size(); i++) {
+            BrokerViewModel estateVm = brokerMapper.BrokerToBrokerVM(pageBrokers.getContent().get(i));
             pageBrokersVm.add(estateVm);
         }
         //pageEstatesVm.reversed();

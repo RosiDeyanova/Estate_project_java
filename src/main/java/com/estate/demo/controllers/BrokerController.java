@@ -8,8 +8,6 @@ import com.estate.demo.viewModels.BrokerViewModel;
 import com.estate.demo.viewModels.PageData;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +41,9 @@ public class BrokerController {
 
     @GetMapping("/allBrokers")
     @PostMapping("/allBrokers")
-    public String showAllBrokersPage(Model model, @RequestParam(name = "page") Integer page) {
+    public String showAllBrokersPage(Model model,
+                                     @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
+                                     @RequestParam(name = "searchTerm", required = false) String searchTerm) {
         if (page == null) {
             page = 0;
         }
@@ -51,7 +51,7 @@ public class BrokerController {
             page = page - 1;
         }
 
-        PageData<BrokerViewModel> allBrokersPD = brokerService.getAllBrokers(page);
+        PageData<BrokerViewModel> allBrokersPD = brokerService.getAllBrokersWithSearch(page, searchTerm);
 
         model.addAttribute("pageData", allBrokersPD);
 
