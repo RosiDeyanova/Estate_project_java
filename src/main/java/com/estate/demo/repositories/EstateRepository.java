@@ -2,6 +2,7 @@ package com.estate.demo.repositories;
 
 import com.estate.demo.enums.EstateStatus;
 import com.estate.demo.models.Broker;
+import com.estate.demo.models.Customer;
 import com.estate.demo.models.Estate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,5 +20,8 @@ public interface EstateRepository extends JpaRepository<Estate, UUID>, PagingAnd
     public Page<Estate> findAllByBroker(Broker broker, Pageable pageable);
     public List<Estate> findAllByBroker(Broker broker);
     public Page<Estate> findAllByBrokerAndNameContainingIgnoreCase(Broker broker, String searchTerm,Pageable pageable);
+    public Estate findEstateById(UUID id);
+    public Page<Estate> findAllByCustomerAndNameContainingIgnoreCase(Customer customer, String searchTerm, Pageable pageable);
+    public Page<Estate> findAllByCustomer(Customer customer, Pageable pageable);
 
 }

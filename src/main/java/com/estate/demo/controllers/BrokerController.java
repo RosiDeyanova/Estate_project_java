@@ -3,13 +3,13 @@ package com.estate.demo.controllers;
 import com.estate.demo.mappers.BrokerMapper;
 import com.estate.demo.models.Broker;
 import com.estate.demo.repositories.BrokerRepository;
-import com.estate.demo.repositories.EstateRepository;
 import com.estate.demo.security.PasswordConfig;
 import com.estate.demo.services.BrokerService;
 import com.estate.demo.services.EstateService;
 import com.estate.demo.viewModels.BrokerViewModel;
 import com.estate.demo.viewModels.EstateViewModel;
 import com.estate.demo.viewModels.PageData;
+import com.estate.demo.viewModels.SearchViewModel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -30,7 +29,6 @@ public class BrokerController {
     private final BrokerMapper brokerMapper;
     private final BrokerRepository brokerRepository;
     private final BrokerService brokerService;
-    private final EstateRepository estateRepository;
     private final EstateService estateService;
 
     @GetMapping("/registrationBroker")
@@ -41,9 +39,10 @@ public class BrokerController {
     }
 
     @PostMapping("/registrationBroker")
-    public String registerBroker(@ModelAttribute("broker") BrokerViewModel brokerVM, Model model){
+    public String registerBroker(@ModelAttribute("broker") BrokerViewModel brokerVM, Model model, RedirectAttributes redirectAttributes){
         Broker broker = brokerMapper.BrokerVMToBroker(brokerVM);
         brokerRepository.save(broker);
+        redirectAttributes.addAttribute("brokerId", broker.getId());
         return "redirect:/";
         //redirects to main page
         //successfully saves a broker to the db
@@ -53,7 +52,9 @@ public class BrokerController {
     @PostMapping("/allBrokers")
     public String showAllBrokersPage(Model model,
                                      @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
-                                     @RequestParam(name = "searchTerm", required = false) String searchTerm) {
+                                     @RequestParam(name = "searchTerm", required = false) String searchTerm,
+                                     @RequestParam(name = "brokerId", required = false) UUID brokerId,
+                                     @RequestParam(name = "customerId", required = false) UUID customerId) {
         if (page == null) {
             page = 0;
         }
@@ -64,7 +65,8 @@ public class BrokerController {
         PageData<BrokerViewModel> allBrokersPD = brokerService.getAllBrokersWithSearch(page, searchTerm);
 
         model.addAttribute("pageData", allBrokersPD);
-
+        model.addAttribute("brokerId", brokerId);
+        model.addAttribute("customerId", customerId);
 
         return "allBrokers";
     }
@@ -86,10 +88,9 @@ public class BrokerController {
 
         model.addAttribute("pageData", allBrokersPD);
         model.addAttribute("brokerId", brokerId);
-        model.addAttribute("customerId", null);
         model.addAttribute("searchTerm", searchTerm);
 
-        return "brokersAllUploadedEstates";
+        return "brokersEstates";
     }
 
     @GetMapping("brokerLogin")

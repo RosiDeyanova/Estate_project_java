@@ -93,8 +93,8 @@ public class BootstrapData implements CommandLineRunner {
 
         ivanSaved.getEstates().add(firstEstateSaved);
         ivanSaved.getEstates().add(secondEstateSaved);
-        firstEstateSaved.getCustomers().add(ivanSaved);
-        secondEstateSaved.getCustomers().add(ivanSaved);
+        firstEstateSaved.setCustomer(ivanSaved);
+        secondEstateSaved.setCustomer(ivanSaved);
         customerRepository.save(ivanSaved);
         estateRepository.save(firstEstateSaved);
         estateRepository.save(secondEstateSaved);

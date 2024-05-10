@@ -12,12 +12,12 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
     <div class="w3-bar w3-white w3-wide w3-padding w3-card">
-        <a href="index.html" class="w3-bar-item w3-button"><b>RD</b> Estates</a>
+        <a class="w3-bar-item w3-button"><b>RD</b> Estates</a>
         <!-- Float links to the right. Hide them on small screens -->
         <div class="w3-right w3-hide-small">
-            <a href="index.html" class="w3-bar-item w3-button">All Estates</a>
+            <a th:href="@{allEstates(customerId=${customerId},brokerId=${brokerId})}" class="w3-bar-item w3-button">All Estates</a>
             <a th:href="@{customerLogin}" class="w3-bar-item w3-button" th:if="${customerId == null && brokerId == null}"> Log in</a>
-            <a th:href="@{}" th:attr="customerId=${customerId}" class="w3-bar-item w3-button" th:if="${customerId != null}"> My estates</a>
+            <a th:href="@{customersEstates(customerId=${customerId})}" class="w3-bar-item w3-button" th:if="${customerId != null}"> My estates</a>
             <a th:href="@{brokersAllUploadedEstates(brokerId=${brokerId})}" th:attr="brokerId=${brokerId}" class="w3-bar-item w3-button" th:if="${brokerId != null}"> My estates</a>
         </div>
     </div>
@@ -57,8 +57,8 @@
             <a><td th:text="${estate.size}"></td></a>
             <td th:text="${estate.price}"></td>
             <td th:text="${estate.status}"></td>
-            <a><td>Edit</td></a>
-            <a><td>Delete</td></a>
+            <td><a th:href="@{editEstate(id=${estate.id}, brokerId=${brokerId})}">Edit</a></td>
+            <td><a>Delete</a></td>
         </tr>
         </tbody>
     </table>

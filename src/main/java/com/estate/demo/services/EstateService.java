@@ -14,8 +14,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -24,6 +27,7 @@ public class EstateService {
     private final EstateRepository estateRepository;
     private final EstateMapper estateMapper;
     private final BrokerRepository brokerRepository;
+    private final FileUploadService fileUploadService;
 
     public PageData<EstateViewModel> getAllEstatesOfBrokerWithSearch(Integer page, String searchTerm, UUID brokerId){
         Pageable pageable = PageRequest.of(page, 12);
@@ -51,5 +55,22 @@ public class EstateService {
         pageData.currentPageNumber = page;
         pageData.pageNumbers = totalPages;
         return pageData;
+    }
+
+    public void editEstate (EstateViewModel estateVM, UUID id)
+    {
+        Optional<Estate> estate = estateRepository.findById(id);
+        estate.get().setName(estateVM.getName());
+        estate.get().setDescription(estateVM.getDescription());
+        estate.get().setPrice(estateVM.getPrice());
+        estate.get().setSize(estateVM.getSize());
+        estate.get().setImageName(estateVM.getName()+".jpg");
+
+        try {
+            fileUploadService.saveFile(estateVM.getFile(), estate.get().getImageName(), "C:" + File.separator + "SpringBoot Projets" + File.separator + "estate project" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "img");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        estateRepository.save(estate.get());
     }
 }

@@ -33,15 +33,15 @@
 
     <!-- Contact Section -->
     <div class="w3-container w3-padding-32" id="contact">
-        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Register as a broker</h3>
-        <p>Start selling estates NOW </p>
-        <form th:action="@{/registrationBroker}" method="post" enctype="multipart/form-data" th:object="${broker}" target="_blank" id="usrform">
-            <input class="w3-input w3-border" type="text" placeholder="First Name" required th:field="*{firstName}">
-            <br>
-            <input class="w3-input w3-border" type="text" placeholder="Last Name" required th:field="*{lastName}">
-            <input class="w3-input w3-section w3-border" type="text" placeholder="Phone number" required th:field="*{phoneNumber}">
-            <input class="w3-input w3-section w3-border" type="email" placeholder="Email" required th:field="*{email}">
-            <input class="w3-input w3-section w3-border" type="password" placeholder="Password" required th:field="*{password}">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Upload a new property</h3>
+        <p>Upload a new property to our database </p>
+        <form th:action="@{editEstate(id=${estate.id}, brokerId=${brokerId})}" method="post" enctype="multipart/form-data" th:object="${estate}" target="_blank" id="usrform">
+            <input class="w3-input w3-border" type="text" placeholder="Name of property" required name="Name" th:field="*{name}">
+            <textarea class="w3-input w3-section w3-border" id="w3review" form="usrform" name="Description" rows="4" cols="50" placeholder="Describe the property" th:field="*{description}"></textarea>
+            <input class="w3-input w3-section w3-border" type="number" placeholder="Price" required name="Price" th:field="*{price}">
+            <input class="w3-input w3-section w3-border" type="number" placeholder="Size in square meters" required name="Size" th:field="*{size}">
+            <label for="pic">Upload a photo:</label>
+            <input type="file" name="pic" id="pic" accept="image/png, image/jpeg, image/jpg" th:field="*{file}"/>
             <br>
             <input class="w3-button w3-black w3-section" type="submit" value="UPLOAD">
 

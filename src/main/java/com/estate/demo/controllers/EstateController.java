@@ -1,8 +1,12 @@
 package com.estate.demo.controllers;
 
 import com.estate.demo.mappers.EstateMapper;
+import com.estate.demo.models.Broker;
 import com.estate.demo.models.Estate;
+import com.estate.demo.repositories.BrokerRepository;
 import com.estate.demo.repositories.EstateRepository;
+import com.estate.demo.services.EstateService;
+import com.estate.demo.services.FileUploadService;
 import com.estate.demo.viewModels.EstateViewModel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +19,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +36,8 @@ import java.util.UUID;
 public class EstateController {
     private final EstateRepository estateRepository;
     private final EstateMapper estateMapper;
+    private final BrokerRepository brokerRepository;
+    private final EstateService estateService;
 
     @GetMapping()
     public String showWelcomePage(Model model,
@@ -61,14 +70,21 @@ public class EstateController {
     public String showCreateForm(Model model,
                                  @RequestParam(name = "brokerId", required = false) UUID brokerId) {
         model.addAttribute("estate", new EstateViewModel());
+        model.addAttribute("brokerId", brokerId);
         return "newEstate";
     }
 
     @PostMapping("/newEstate")
-    public String createEstate(@ModelAttribute("estate")  EstateViewModel estateVM, Model model){
+    public String createEstate(@ModelAttribute("estate")  EstateViewModel estateVM,@RequestParam(name = "brokerId") UUID brokerId, Model model, RedirectAttributes redirectAttributes){
         model.addAttribute("estate", estateVM);
         Estate estate = estateMapper.EstateVMToEstate(estateVM);
+        Estate savedEstate = estateRepository.save(estate);
+        Broker broker = brokerRepository.findBrokerById(brokerId);
+        broker.getEstates().add(savedEstate);
+        brokerRepository.save(broker);
         estateRepository.save(estate);
+
+        redirectAttributes.addAttribute("brokerId", brokerId);
         return "redirect:/";
     }
 
@@ -111,6 +127,8 @@ public class EstateController {
         model.addAttribute("pageNumbers", pagenumbers);
         model.addAttribute("currentPage", page);
         model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("brokerId", brokerId);
+        model.addAttribute("customerId", customerId);
         return "allEstates";
     }
 
@@ -121,6 +139,32 @@ public class EstateController {
     {
         Optional<Estate> estate = estateRepository.findById(id);
         model.addAttribute("estate", estate.get());
+        model.addAttribute("brokerId", brokerId);
+        model.addAttribute("customerId", customerId);
         return "estatePage";
+    }
+
+    @GetMapping("/editEstate")
+    public String editEstate(Model model,@RequestParam(name = "id") UUID id,
+                                   @RequestParam(name = "brokerId", required = false) UUID brokerId,
+                                   @RequestParam(name = "customerId", required = false) UUID customerId)
+    {
+        Optional<Estate> estate = estateRepository.findById(id);
+        EstateViewModel estateViewModel = estateMapper.EstateToEstateVM(estate.get());
+        model.addAttribute("estate", estateViewModel);
+        model.addAttribute("brokerId", brokerId);
+        model.addAttribute("customerId", customerId);
+        return "editEstate";
+    }
+
+    @PostMapping("/editEstate")
+    public String editEstate(Model model, @ModelAttribute("estate")  EstateViewModel estateVM,
+                             @RequestParam(name = "id") UUID id,
+                             @RequestParam(name = "brokerId", required = false) UUID brokerId,
+                             RedirectAttributes redirectAttributes)
+    {
+        estateService.editEstate(estateVM,id);
+        redirectAttributes.addAttribute("brokerId", brokerId);
+        return "redirect:/allEstates";
     }
 }

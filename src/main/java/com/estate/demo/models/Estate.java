@@ -30,8 +30,8 @@ public class Estate {
     private String imageName;
     private EstateStatus status = EstateStatus.Available;
 
-    @ManyToMany(mappedBy = "estates")
-    private Set<Customer> customers = new HashSet<>();
+    @ManyToOne
+    private Customer customer;
 
     @ManyToOne
     private Broker broker;

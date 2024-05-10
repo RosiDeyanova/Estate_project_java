@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import static jakarta.persistence.CascadeType.REMOVE;
+
 @Entity
 @Getter
 @Setter
@@ -24,7 +26,6 @@ public class Customer {
     private String email;
     private String password;
 
-    @ManyToMany
-    @JoinTable(name = "estate_customer", joinColumns = @JoinColumn(name="estate_id"),inverseJoinColumns = @JoinColumn(name = "customer_id"))
+    @OneToMany(cascade=REMOVE,mappedBy = "customer")
     private Set<Estate> estates = new HashSet<>();
 }

@@ -33,17 +33,13 @@
 
     <!-- Contact Section -->
     <div class="w3-container w3-padding-32" id="contact">
-        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Register as a broker</h3>
-        <p>Start selling estates NOW </p>
-        <form th:action="@{/registrationBroker}" method="post" enctype="multipart/form-data" th:object="${broker}" target="_blank" id="usrform">
-            <input class="w3-input w3-border" type="text" placeholder="First Name" required th:field="*{firstName}">
-            <br>
-            <input class="w3-input w3-border" type="text" placeholder="Last Name" required th:field="*{lastName}">
-            <input class="w3-input w3-section w3-border" type="text" placeholder="Phone number" required th:field="*{phoneNumber}">
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Login</h3>
+        <p>Start buying estates NOW </p>
+        <form th:action="@{/customerLogin}" method="post" enctype="multipart/form-data" th:object="${customer}" target="_blank" id="usrform">
             <input class="w3-input w3-section w3-border" type="email" placeholder="Email" required th:field="*{email}">
             <input class="w3-input w3-section w3-border" type="password" placeholder="Password" required th:field="*{password}">
             <br>
-            <input class="w3-button w3-black w3-section" type="submit" value="UPLOAD">
+            <input class="w3-button w3-black w3-section" type="submit" value="Login">
 
         </form>
     </div>

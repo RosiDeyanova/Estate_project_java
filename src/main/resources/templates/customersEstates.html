@@ -23,42 +23,41 @@
     </div>
 </div>
 
-<!-- Header -->
-<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
-    <center><img class="w3-image" src="img/architect.jpg" alt="Architecture" width="700" height="700"></center>
-</header>
-
 <!-- Page content -->
 <div class="w3-content w3-padding" style="max-width:1564px">
 
     <!-- Project Section -->
     <div class="w3-container w3-padding-32" id="projects">
-        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">All Brokers</h3>
+        <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">My Estates</h3>
     </div>
 
-    <nav class="navbar navbar-light bg-light">
-        <form class="form-inline" th:action="@{/allBrokers}" method="get">
+    <!--<nav class="navbar navbar-light bg-light">
+        <form class="form-inline" th:action="@{/customersEstates}" th:object="${searchVM}" method="get">
             <input class="form-control mr-sm-3" type="search" placeholder="Find by first or last name" aria-label="Search"
-                   name="searchTerm" th:value="${searchTerm}" style="padding-right: 300px">
+                   name="searchTerm" th:field="${searchVM.searchTermVM}" style="padding-right: 300px">
+            <input th:field="${searchVM.customerIdVM}" hidden="hidden">
+            <input th:field="${searchVM.brokerIdVM}" hidden="hidden">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-    </nav>
+    </nav>-->
 
-   <table class="table">
+    <table class="table">
         <thead>
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Number of estates</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone number</th>
+            <th scope="col">Heading</th>
+            <th scope="col">Size</th>
+            <th scope="col">Price</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="broker: ${pageData.vmData}">
-            <td scope="row" th:text="${broker.firstName} + ' ' + ${broker.lastName}"></td>
-            <a><td th:text="${broker.estatesCount}"></td></a>
-            <td th:text="${broker.email}"></td>
-            <td th:text="${broker.phoneNumber}"></td>
+        <tr th:each="estate: ${pageData.vmData}">
+            <td scope="row" th:text="${estate.Name}"></td>
+            <a><td th:text="${estate.size}"></td></a>
+            <td th:text="${estate.price}"></td>
+            <td th:text="${estate.status}"></td>
+            <td><a th:href="@{estatePage(id=${estate.id}, customerId=${customerId})}">View</a></td>
         </tr>
         </tbody>
     </table>
@@ -67,7 +66,7 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li th:each="pagenum : ${pageData.pageNumbers}" th:classappend="${pagenum == pageData.currentPageNumber + 1} ? 'page-item active' : 'page-item'">
-                    <a class="page-link" th:href="@{/allEstates(page=${pagenum})}" th:text="${pagenum}"></a>
+                    <a class="page-link" th:href="@{/customersEstates(page=${pagenum}, customerId=${customerId})}" th:text="${pagenum}"></a>
                 </li>
             </ul>
         </nav>
