@@ -81,8 +81,9 @@
 
 
 <!-- Footer -->
-<footer class="w3-center w3-black w3-padding-16">
-    <p> <a th:href="@{/registrationBroker}" title="W3.CSS" target="_blank" class="w3-hover-text-green">Register as a broker</a></p>
+<footer class="w3-center w3-black w3-padding-16" th:if="${brokerId == null}">
+    <span><a th:href="@{/registrationBroker}" th:if="${brokerId==null && customerId==null}" title="W3.CSS" target="_blank" class="w3-hover-text-green">Register as a broker</a></span>
+    <span><a th:href="@{/brokerLogin}" th:if="${brokerId==null && customerId==null}" title="W3.CSS" target="_blank" class="w3-hover-text-green" style="margin-left: 40px">Login as a broker</a></span>
 </footer>
 
 </body>
