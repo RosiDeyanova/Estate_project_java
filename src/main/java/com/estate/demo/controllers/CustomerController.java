@@ -11,7 +11,6 @@ import com.estate.demo.services.CustomerService;
 import com.estate.demo.viewModels.CustomerViewModel;
 import com.estate.demo.viewModels.EstateViewModel;
 import com.estate.demo.viewModels.PageData;
-import com.estate.demo.viewModels.SearchViewModel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -80,7 +79,7 @@ public class CustomerController {
 
         Customer customer = customerRepository.findCustomerById(customerId);
         Estate estate = estateRepository.findEstateById(estateId);
-        customer.getEstates().add(estate);
+        customer.getEstatesBought().add(estate);
         customerRepository.save(customer);
         estate.setCustomer(customer);
         estate.setStatus(EstateStatus.Sold);

@@ -54,7 +54,7 @@
             <div class="w3-display-container">
                 <div th:class="'w3-display-topleft ' + ${estate.statusClass} + ' w3-padding'" th:text="${estate.status}"></div>
                 <img th:src="@{'img/' + ${estate.imageName}}" alt="House" style="width:100%">
-                <a th:href="@{/estatePage(id=${estate.id})}"><h4 th:text="${estate.name}"></h4></a>
+                <a th:href="@{/estatePage(id=${estate.id}, brokerId=${brokerId}, customerId=${customerId})}"><h4 th:text="${estate.name}"></h4></a>
             </div>
         </div>
     </div>

@@ -26,6 +26,13 @@ public class Customer {
     private String email;
     private String password;
 
-    @OneToMany(cascade=REMOVE,mappedBy = "customer")
-    private Set<Estate> estates = new HashSet<>();
+    @OneToMany(cascade=REMOVE,mappedBy = "customer", fetch = FetchType.EAGER)
+    private Set<Estate> estatesBought = new HashSet<>();
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, REMOVE}, fetch = FetchType.EAGER)
+    @JoinTable(name = "customer_estate",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "estate_id"))
+    private Set<Estate> estatesLiked = new HashSet<>();
+
 }

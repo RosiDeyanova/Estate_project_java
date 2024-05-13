@@ -42,6 +42,10 @@
         <span th:text="'Size: ' + ${estate.size} + ' sq.m.'" style="margin-left: 50px;"></span></center></b>
     </div>
 
+    <div th:if="${customerId != null}">
+       <a th:href="@{likeEstate(id=${estate.id},customerId=${customerId})}"> <img th:if="${estate.isLiked==false}"  src="img/heart.png" ></a>
+       <a th:href="@{unlikeEstate(id=${estate.id},customerId=${customerId})}"> <img th:if="${estate.isLiked==true}" src="img/heart_liked.png"></a>
+    </div>
 
     <div class="w3-container w3-padding-32" th:if="${customerId != null && estate.status=='Available'}">
         <center><a th:href="@{/buyEstate(estateId=${estate.id}, customerId=${customerId})}"><button class="w3-button w3-black w3-section" style="padding:10px; width: 300px"> BUY</button></a></center>

@@ -18,4 +18,5 @@ public class EstateViewModel {
     private String statusClass;
     private String status;
     private MultipartFile file;
+    private Boolean isLiked;
 }

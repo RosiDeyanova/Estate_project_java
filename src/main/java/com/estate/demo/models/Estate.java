@@ -6,6 +6,7 @@ import lombok.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -35,6 +36,23 @@ public class Estate {
 
     @ManyToOne
     private Broker broker;
+
+    @ManyToMany(mappedBy = "estatesLiked", fetch = FetchType.EAGER)
+    private Set<Customer> customersLiked = new HashSet<>();
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Estate estate = (Estate) o;
+        return Objects.equals(id, estate.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
 
 }

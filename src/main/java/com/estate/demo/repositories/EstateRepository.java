@@ -23,5 +23,6 @@ public interface EstateRepository extends JpaRepository<Estate, UUID>, PagingAnd
     public Estate findEstateById(UUID id);
     public Page<Estate> findAllByCustomerAndNameContainingIgnoreCase(Customer customer, String searchTerm, Pageable pageable);
     public Page<Estate> findAllByCustomer(Customer customer, Pageable pageable);
+    public Boolean existsEstateByIdAndCustomersLikedContains(UUID id, Customer customer);
 
 }
