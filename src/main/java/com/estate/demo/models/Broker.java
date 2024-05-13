@@ -27,7 +27,7 @@ public class Broker {
     private String email;
     private String password;
 
-    @OneToMany(cascade=REMOVE,mappedBy = "broker")
+    @OneToMany(cascade=REMOVE,mappedBy = "broker", fetch = FetchType.EAGER)
     //because of fetch = FetchType.EAGER it is not fetching anything
     private Set<Estate> estates = new HashSet<>();
 }

@@ -82,6 +82,7 @@ public class EstateController {
         Estate savedEstate = estateRepository.save(estate);
         Broker broker = brokerRepository.findBrokerById(brokerId);
         broker.getEstates().add(savedEstate);
+        estate.setBroker(broker);
         brokerRepository.save(broker);
         estateRepository.save(estate);
 
@@ -167,6 +168,7 @@ public class EstateController {
         return "editEstate";
     }
 
+    @Transactional
     @PostMapping("/editEstate")
     public String editEstate(Model model, @ModelAttribute("estate")  EstateViewModel estateVM,
                              @RequestParam(name = "id") UUID id,
@@ -178,12 +180,13 @@ public class EstateController {
         return "redirect:/allEstates";
     }
 
+    @Transactional
     @GetMapping("/deleteEstate")
     public String deleteEstate(@RequestParam(name = "id") UUID id,
                                @RequestParam(name = "brokerId") UUID brokerId,
                                RedirectAttributes redirectAttributes)
     {
-        estateRepository.deleteById(id);
+        estateRepository.deleteEstateById(id);
         redirectAttributes.addAttribute("brokerId", brokerId);
         return "redirect:/brokersAllUploadedEstates";
     }

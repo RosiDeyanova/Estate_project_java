@@ -91,7 +91,7 @@ public class CustomerController {
         estate.setStatus(EstateStatus.Sold);
         estateRepository.save(estate);
 
-        redirectAttributes.addFlashAttribute("customerId", customer.getId());
+        redirectAttributes.addAttribute("customerId", customerId);
         return "redirect:/customersEstates";
     }
 

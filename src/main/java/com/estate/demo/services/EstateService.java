@@ -59,18 +59,30 @@ public class EstateService {
 
     public void editEstate (EstateViewModel estateVM, UUID id)
     {
-        Optional<Estate> estate = estateRepository.findById(id);
-        estate.get().setName(estateVM.getName());
-        estate.get().setDescription(estateVM.getDescription());
-        estate.get().setPrice(estateVM.getPrice());
-        estate.get().setSize(estateVM.getSize());
-        estate.get().setImageName(estateVM.getName()+".jpg");
+        Estate estate = estateRepository.findEstateById(id);
+        if (estateVM.getName() != null) {
+            estate.setName(estateVM.getName());
+        }
+        if (estateVM.getDescription() != null) {
+            estate.setDescription(estateVM.getDescription());
+        }
+        if (estateVM.getPrice() != null) {
+            estate.setPrice(estateVM.getPrice());
+        }
+        if (estateVM.getSize() != null) {
+            estate.setSize(estateVM.getSize());
+        }
+        if (estateVM.getName() != null) {
+            estate.setImageName(estateVM.getName() + ".jpg");
+        }
 
+        if (estateVM.getFile().getSize() != 0){
         try {
-            fileUploadService.saveFile(estateVM.getFile(), estate.get().getImageName(), "C:" + File.separator + "SpringBoot Projets" + File.separator + "estate project" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "img");
+            fileUploadService.saveFile(estateVM.getFile(), estate.getImageName(), "C:" + File.separator + "SpringBoot Projets" + File.separator + "estate project" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "img");
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-        estateRepository.save(estate.get());
+        }}
+
+        estateRepository.save(estate);
     }
 }

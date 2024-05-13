@@ -37,7 +37,7 @@
     <div class="w3-container w3-padding-32" id="contact">
         <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Upload a new property</h3>
         <p>Upload a new property to our database </p>
-        <form th:action="@{/newEstate}" method="post" enctype="multipart/form-data" th:object="${estate}" target="_blank" id="usrform">
+        <form th:action="@{/newEstate(brokerId=${brokerId})}" method="post" enctype="multipart/form-data" th:object="${estate}" target="_blank" id="usrform">
             <input class="w3-input w3-border" type="text" placeholder="Name of property" required name="Name" th:field="*{name}">
             <textarea class="w3-input w3-section w3-border" id="w3review" form="usrform" name="Description" rows="4" cols="50" placeholder="Describe the property" th:field="*{description}"></textarea>
             <input class="w3-input w3-section w3-border" type="number" placeholder="Price" required name="Price" th:field="*{price}">

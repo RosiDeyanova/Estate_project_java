@@ -37,22 +37,8 @@ public class Estate {
     @ManyToOne
     private Broker broker;
 
-    @ManyToMany(mappedBy = "estatesLiked", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "estatesLiked", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Customer> customersLiked = new HashSet<>();
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Estate estate = (Estate) o;
-        return Objects.equals(id, estate.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 
 
 }
