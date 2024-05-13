@@ -2,6 +2,8 @@ package com.estate.demo.controllers;
 
 import com.estate.demo.enums.EstateStatus;
 import com.estate.demo.mappers.CustomerMapper;
+import com.estate.demo.mappers.EstateMapper;
+import com.estate.demo.mappers.EstateMapperImpl;
 import com.estate.demo.models.Customer;
 import com.estate.demo.models.Estate;
 import com.estate.demo.repositories.CustomerRepository;
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -30,6 +35,7 @@ public class CustomerController {
     private final CustomerRepository customerRepository;
     private final EstateRepository estateRepository;
     private final CustomerService customerService;
+    private final EstateMapper estateMapper;
 
     @GetMapping("/registrationCustomer")
     public String showCustomerRegistrationPage(Model model) {
@@ -105,7 +111,14 @@ public class CustomerController {
         }
 
         PageData<EstateViewModel> allCustomerEstatesPD = customerService.getAllCustomerEstates(customerId,page, searchTerm);
+        Customer customer = customerRepository.findCustomerById(customerId);
+        List<EstateViewModel> estateLiked = new ArrayList<>();
+        for (Estate estate : customer.getEstatesLiked()) {
+            EstateViewModel viewModel = estateMapper.EstateToEstateVM(estate);
+            estateLiked.add(viewModel);
+        }
         model.addAttribute("pageData", allCustomerEstatesPD);
+        model.addAttribute("estatesLiked", estateLiked);
         model.addAttribute("customerId", customerId);
         model.addAttribute("searchTerm", searchTerm);
 
