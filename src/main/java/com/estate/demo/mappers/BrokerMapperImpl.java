@@ -31,6 +31,7 @@ public class BrokerMapperImpl implements BrokerMapper {
     public BrokerViewModel BrokerToBrokerVM(Broker broker) {
 
         BrokerViewModel brokerViewModel = new BrokerViewModel();
+        brokerViewModel.setId(broker.getId());
         brokerViewModel.setFirstName(broker.getFirstName());
         brokerViewModel.setLastName(broker.getLastName());
         brokerViewModel.setEmail(broker.getEmail());

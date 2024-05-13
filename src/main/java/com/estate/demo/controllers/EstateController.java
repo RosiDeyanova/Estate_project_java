@@ -105,6 +105,10 @@ public class EstateController {
 
         Pageable pageable = PageRequest.of(page, 12);
         Page<Estate> pageEstates = estateRepository.findAllByNameContainingIgnoreCase(searchTerm,pageable);
+        if(brokerId != null) {
+            Broker broker = brokerRepository.findBrokerById(brokerId);
+            pageEstates = estateRepository.findAllByBroker(broker,pageable);
+        }
         if(searchTerm == null || searchTerm.isEmpty())
         {
             pageEstates = estateRepository.findAll(pageable);
