@@ -167,4 +167,14 @@ public class EstateController {
         redirectAttributes.addAttribute("brokerId", brokerId);
         return "redirect:/allEstates";
     }
+
+    @GetMapping("/deleteEstate")
+    public String deleteEstate(@RequestParam(name = "id") UUID id,
+                               @RequestParam(name = "brokerId", required = false) UUID brokerId,
+                               RedirectAttributes redirectAttributes)
+    {
+        estateRepository.deleteById(id);
+        redirectAttributes.addAttribute("brokerId", brokerId);
+        return "redirect:/brokersAllUploadedEstates";
+    }
 }

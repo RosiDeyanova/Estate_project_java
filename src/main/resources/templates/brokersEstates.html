@@ -58,7 +58,7 @@
             <td th:text="${estate.price}"></td>
             <td th:text="${estate.status}"></td>
             <td><a th:href="@{editEstate(id=${estate.id}, brokerId=${brokerId})}">Edit</a></td>
-            <td><a>Delete</a></td>
+            <td><a th:href="@{deleteEstate(id=${estate.id}, brokerId=${brokerId})}">Delete</a></td>
         </tr>
         </tbody>
     </table>
