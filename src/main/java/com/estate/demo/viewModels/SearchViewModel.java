@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public class SearchViewModel {
     public String searchTermVM;
-    public UUID brokerIdVM;
-    public UUID customerIdVM;
+    public UUID brokerId;
+    public UUID customerId;
 }

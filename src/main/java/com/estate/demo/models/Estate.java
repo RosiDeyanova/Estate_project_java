@@ -10,6 +10,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+import static jakarta.persistence.CascadeType.REFRESH;
+
 @Entity
 @Builder
 @Setter
@@ -37,7 +39,7 @@ public class Estate {
     @ManyToOne
     private Broker broker;
 
-    @ManyToMany(mappedBy = "estatesLiked", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "estatesLiked", fetch = FetchType.EAGER)
     private Set<Customer> customersLiked = new HashSet<>();
 
 

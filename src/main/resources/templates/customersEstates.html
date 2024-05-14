@@ -20,13 +20,13 @@
             <a th:href="@{customerLogin}" class="w3-bar-item w3-button" th:if="${customerId == null && brokerId == null}"> Log in</a>
             <a th:href="@{customersEstates(customerId=${customerId})}" class="w3-bar-item w3-button" th:if="${customerId != null}"> My estates</a>
             <a th:href="@{brokersAllUploadedEstates(brokerId=${brokerId})}" th:attr="brokerId=${brokerId}" class="w3-bar-item w3-button" th:if="${brokerId != null}"> My estates</a>
-            <a th:href="@{newEstate(brokerId=${brokerId})}" th:if="${brokerId != null}">New Estate</a>
+            <a th:href="@{newEstate(brokerId=${brokerId})}" th:if="${brokerId != null}" class="w3-bar-item w3-button">New Estate</a>
         </div>
     </div>
 </div>
 
 <!-- Page content -->
-<div class="w3-content w3-padding" style="max-width:1564px">
+<div class="w3-content w3-padding" style="max-width:1564px; margin-top:60px">
 
     <!-- Project Section -->
     <div class="w3-container w3-padding-32" id="projects">

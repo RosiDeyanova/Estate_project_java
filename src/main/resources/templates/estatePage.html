@@ -20,7 +20,7 @@
             <a th:href="@{customerLogin}" class="w3-bar-item w3-button" th:if="${customerId == null && brokerId == null}"> Log in</a>
             <a th:href="@{customersEstates(customerId=${customerId})}" class="w3-bar-item w3-button" th:if="${customerId != null}"> My estates</a>
             <a th:href="@{brokersAllUploadedEstates(brokerId=${brokerId})}" th:attr="brokerId=${brokerId}" class="w3-bar-item w3-button" th:if="${brokerId != null}"> My estates</a>
-            <a th:href="@{newEstate(brokerId=${brokerId})}" th:if="${brokerId != null}">New Estate</a>
+            <a th:href="@{newEstate(brokerId=${brokerId})}" th:if="${brokerId != null}" class="w3-bar-item w3-button">New Estate</a>
         </div>
     </div>
 </div>
@@ -44,19 +44,23 @@
         <span th:text="'Size: ' + ${estate.size} + ' sq.m.'" style="margin-left: 50px;"></span></center></b>
     </div>
 
-    <div th:if="${customerId != null}">
-       <a th:href="@{likeEstate(id=${estate.id},customerId=${customerId})}"> <img th:if="${estate.isLiked==false}"  src="img/heart.png" ></a>
-       <a th:href="@{unlikeEstate(id=${estate.id},customerId=${customerId})}"> <img th:if="${estate.isLiked==true}" src="img/heart_liked.png"></a>
-    </div>
+    <div class="w3-container w3-padding-32">
+        <center>
+        <span th:if="${customerId != null}">
+           <a th:href="@{likeEstate(id=${estate.id},customerId=${customerId})}"> <img th:if="${estate.isLiked==false}"  src="img/heart.png" style="width:50px; margin-right:50px"></a>
+           <a th:href="@{unlikeEstate(id=${estate.id},customerId=${customerId})}"> <img th:if="${estate.isLiked==true}" src="img/heart_liked.png" style="width:50px; margin-right:50px"></a>
+        </span>
 
-    <div class="w3-container w3-padding-32" th:if="${customerId != null && estate.status=='Available'}">
-        <center><a th:href="@{/buyEstate(estateId=${estate.id}, customerId=${customerId})}"><button class="w3-button w3-black w3-section" style="padding:10px; width: 300px"> BUY</button></a></center>
+        <span th:if="${customerId != null}">
+            <a th:href="@{/buyEstate(estateId=${estate.id}, customerId=${customerId})}"><button class="w3-button w3-black w3-section" style="padding:10px; width: 300px"> BUY</button></a>
+        </span>
+        </center>
     </div>
 
 
     <!-- Image of location/map -->
     <div class="w3-container">
-        <img src="img/map.jpg" class="w3-image" style="width:100%">
+        <img src="img/map.jpg" class="w3-image" style="width:100%; margin-top:50px">
     </div>
 
     <!-- End page content -->

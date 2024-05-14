@@ -53,7 +53,7 @@ public class EstateMapperImpl implements EstateMapper
             estateVM.setStatus("Hot");
         }
         else {
-            estateVM.setStatusClass("w3-green");
+            estateVM.setStatusClass("w3-gray");
             estateVM.setStatus("Unavailable");
         }
 

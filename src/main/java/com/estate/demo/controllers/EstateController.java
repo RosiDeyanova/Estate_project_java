@@ -1,5 +1,6 @@
 package com.estate.demo.controllers;
 
+import com.estate.demo.enums.EstateStatus;
 import com.estate.demo.mappers.EstateMapper;
 import com.estate.demo.models.Broker;
 import com.estate.demo.models.Customer;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -104,7 +106,7 @@ public class EstateController {
             page = page - 1;
         }
 
-        Pageable pageable = PageRequest.of(page, 12);
+        Pageable pageable = PageRequest.of(page, 12, Sort.by(Sort.Direction.DESC, "id"));
         Page<Estate> pageEstates = estateRepository.findAllByNameContainingIgnoreCase(searchTerm,pageable);
         if(brokerId != null) {
             Broker broker = brokerRepository.findBrokerById(brokerId);
@@ -186,11 +188,23 @@ public class EstateController {
                                @RequestParam(name = "brokerId") UUID brokerId,
                                RedirectAttributes redirectAttributes)
     {
-        estateRepository.deleteEstateById(id);
+        Estate estate = estateRepository.findEstateById(id);
+
+        List<Customer> allCustomers = customerRepository.findAll();
+        for(Customer customer : allCustomers){
+            customer.getEstatesLiked().remove(estate);
+            customer.getEstatesBought().remove(estate);
+        }
+
+        if (estateRepository.existsById(id)) {
+            estateRepository.delete(estate);
+        }
+
         redirectAttributes.addAttribute("brokerId", brokerId);
         return "redirect:/brokersAllUploadedEstates";
     }
 
+    @Transactional
     @GetMapping("likeEstate")
     public String likeEstate(@RequestParam(name = "id") UUID id,
                              @RequestParam(name = "customerId") UUID customerId,
@@ -206,6 +220,11 @@ public class EstateController {
         Set<Customer> customers = estate.getCustomersLiked();
         customers.add(customer);
         estate.setCustomersLiked(customers);
+
+        if(estate.getCustomersLiked().size()>=1)
+        {
+            estate.setStatus(EstateStatus.Hot);
+        }
 
         estateRepository.save(estate);
         customerRepository.save(customer);

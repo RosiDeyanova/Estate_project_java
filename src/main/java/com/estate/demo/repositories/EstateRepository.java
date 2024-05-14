@@ -1,6 +1,5 @@
 package com.estate.demo.repositories;
 
-import com.estate.demo.enums.EstateStatus;
 import com.estate.demo.models.Broker;
 import com.estate.demo.models.Customer;
 import com.estate.demo.models.Estate;
@@ -10,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
-import java.util.Stack;
 import java.util.UUID;
 
 public interface EstateRepository extends JpaRepository<Estate, UUID>, PagingAndSortingRepository<Estate, UUID> {
@@ -24,6 +22,7 @@ public interface EstateRepository extends JpaRepository<Estate, UUID>, PagingAnd
     public Page<Estate> findAllByCustomerAndNameContainingIgnoreCase(Customer customer, String searchTerm, Pageable pageable);
     public Page<Estate> findAllByCustomer(Customer customer, Pageable pageable);
     public Boolean existsEstateByIdAndCustomersLikedContains(UUID id, Customer customer);
-    public void deleteEstateById(UUID id);
+    public void deleteById(UUID id);
+    public boolean existsById(UUID id);
 
 }

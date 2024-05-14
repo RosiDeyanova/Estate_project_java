@@ -14,12 +14,14 @@
         <a class="w3-bar-item w3-button"><b>RD</b> Estates</a>
         <!-- Float links to the right. Hide them on small screens -->
         <div class="w3-right w3-hide-small">
-            <a th:href="@{allEstates(customerId=${customerId},brokerId=${brokerId})}" class="w3-bar-item w3-button">All Estates</a>
-            <a th:href="@{allBrokers(customerId=${customerId},brokerId=${brokerId})}" class="w3-bar-item w3-button">All Brokers</a>
-            <a th:href="@{customerLogin}" class="w3-bar-item w3-button" th:if="${customerId == null && brokerId == null}"> Log in</a>
-            <a th:href="@{customersEstates(customerId=${customerId})}" class="w3-bar-item w3-button" th:if="${customerId != null}"> My estates</a>
-            <a th:href="@{brokersAllUploadedEstates(brokerId=${brokerId})}" th:attr="brokerId=${brokerId}" class="w3-bar-item w3-button" th:if="${brokerId != null}"> My estates</a>
-            <a th:href="@{newEstate(brokerId=${brokerId})}" th:if="${brokerId != null}">New Estate</a>
+            <div class="w3-right w3-hide-small">
+                <a th:href="@{allEstates(customerId=${customerId},brokerId=${brokerId})}" class="w3-bar-item w3-button">All Estates</a>
+                <a th:href="@{allBrokers(customerId=${customerId},brokerId=${brokerId})}" class="w3-bar-item w3-button">All Brokers</a>
+                <a th:href="@{customerLogin}" class="w3-bar-item w3-button" th:if="${customerId == null && brokerId == null}"> Log in</a>
+                <a th:href="@{customersEstates(customerId=${customerId})}" class="w3-bar-item w3-button" th:if="${customerId != null}"> My estates</a>
+                <a th:href="@{brokersAllUploadedEstates(brokerId=${brokerId})}" th:attr="brokerId=${brokerId}" class="w3-bar-item w3-button" th:if="${brokerId != null}"> My estates</a>
+                <a th:href="@{newEstate(brokerId=${brokerId})}" th:if="${brokerId != null}" class="w3-bar-item w3-button">New Estate</a>
+            </div>
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import static jakarta.persistence.CascadeType.REFRESH;
 import static jakarta.persistence.CascadeType.REMOVE;
 
 @Entity
@@ -27,7 +28,7 @@ public class Broker {
     private String email;
     private String password;
 
-    @OneToMany(cascade=REMOVE,mappedBy = "broker", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "broker", fetch = FetchType.EAGER)
     //because of fetch = FetchType.EAGER it is not fetching anything
     private Set<Estate> estates = new HashSet<>();
 }
